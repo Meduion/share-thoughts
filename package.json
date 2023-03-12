@@ -1,0 +1,23 @@
+{
+  "name": "share-thoughts",
+  "version": "1.0.0",
+  "description": "A trial social media API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meduion/share-thoughts.git"
+  },
+  "author": "Brian Wyatt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Meduion/share-thoughts/issues"
+  },
+  "homepage": "https://github.com/Meduion/share-thoughts#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.1"
+  }
+}
