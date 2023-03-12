@@ -1,13 +1,19 @@
 const { Schema, model } = require('mongoose');
-const reactionSchema = require('./Reaction');
 
-const thoughtSchema = new Schema(
+const reactionSchema = new Schema(
   {
-    thoughtText: {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
       type: String,
       required: true,
-      min_length: 1,
       max_length: 280,
+    },
+    userName: {
+      type: String,
+      required: true,
     },
     createdAt: {
       type: Date,
@@ -15,11 +21,6 @@ const thoughtSchema = new Schema(
       // toLocaleDateString option suggested by Angel Mondragon here https://stackoverflow.com/questions/66197273/how-do-you-format-the-default-mongoose-date
       get: (date) => date.toLocaleDateString('en-us'),
     },
-    username: {
-      type: String,
-      required: true,
-    },
-    reactions: [reactionSchema],
   },
   {
     toJSON: {
@@ -30,14 +31,4 @@ const thoughtSchema = new Schema(
   }
 );
 
-thoughtSchema
-.virtual('reactionCount')
-.get(function () {
-  return this.reactions.length;
-});
-
-const Thought = model('thought', thoughtSchema);
-
-module.exports = Thought;
-
-console.log(Thought);
+module.exports = reactionSchema;
