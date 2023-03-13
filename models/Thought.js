@@ -39,5 +39,3 @@ thoughtSchema
 const Thought = model('thought', thoughtSchema);
 
 module.exports = Thought;
-
-console.log(Thought);
