@@ -31,12 +31,30 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   deleteUser(req, res) {
-    User.deleteOne({ _id: req.params.id })
+    User.findByIdAndDelete(req.params.id)
       .then((user) =>
         !user
         ? res.status(404).json({ message: 'No user found!' })
         : res.json({ user })
       )
       .catch((err) => res.status(500).json(err));
-  }
+  },
+  addFriend(req, res) {
+    User.findByIdAndUpdate(req.params.id, {$addToSet: { friends: req.params.friendId }}, { runValidators: true, new: true })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user found with that ID' })
+          : res.json({ user })
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+  deleteFriend(req, res) {
+    User.findByIdAndUpdate(req.params.id, {$pull: { friends: { friendId: req.params.friendId }}}, { runValidators: true, new: true })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user found with that ID' })
+          : res.json({ user })
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 }

@@ -13,7 +13,7 @@ const thoughtSchema = new Schema(
       type: Date,
       default: Date.now(),
       // toLocaleDateString option suggested by Angel Mondragon here https://stackoverflow.com/questions/66197273/how-do-you-format-the-default-mongoose-date
-      get: (date) => date.toLocaleDateString('en-us'),
+      get: (date) => date.toLocaleString(),
     },
     username: {
       type: String,
