@@ -7,7 +7,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   getOneUser(req, res) {
-    User.findOne(req.params.id)
+    User.findById(req.params.id)
       // .select('-__v')
       .then((user) =>
         !user
@@ -22,7 +22,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   updateUser(req, res) {
-    User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, { runValidators: true})
+    User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user found!' })
