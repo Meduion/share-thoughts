@@ -1,4 +1,5 @@
 const Thought = require('../models/Thought');
+const User = require('../models/User');
 
 module.exports = {
   getThoughts(req, res) {
@@ -18,6 +19,9 @@ module.exports = {
   },
   createThought(req, res) {
     Thought.create(req.body)
+      .then(({ _id }) => {
+        return User.findOneAndUpdate({ _id: req.body.userId }, { $push: { thoughts: _id }}, { new: true, runValidators: true });
+      })
       .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
