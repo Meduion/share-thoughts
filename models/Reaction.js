@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 
 const reactionSchema = new Schema(
   {
@@ -11,7 +11,7 @@ const reactionSchema = new Schema(
       required: true,
       max_length: 280,
     },
-    userName: {
+    username: {
       type: String,
       required: true,
     },
@@ -19,7 +19,7 @@ const reactionSchema = new Schema(
       type: Date,
       default: Date.now(),
       // toLocaleDateString option suggested by Angel Mondragon here https://stackoverflow.com/questions/66197273/how-do-you-format-the-default-mongoose-date
-      get: (date) => date.toLocaleDateString('en-us'),
+      get: (date) => date.toLocaleString(),
     },
   },
   {

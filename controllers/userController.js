@@ -8,7 +8,8 @@ module.exports = {
   },
   getOneUser(req, res) {
     User.findById(req.params.id)
-      // .select('-__v')
+      // Come back to the populate method to display when looking at single user
+      // .populate()
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
@@ -35,7 +36,7 @@ module.exports = {
       .then((user) =>
         !user
         ? res.status(404).json({ message: 'No user found!' })
-        : res.json({ user })
+        : res.json({ message: `User ${req.params.id} successfully deleted.` })
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -49,11 +50,11 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   deleteFriend(req, res) {
-    User.findByIdAndUpdate(req.params.id, {$pull: { friends: { friendId: req.params.friendId }}}, { runValidators: true, new: true })
+    User.findByIdAndUpdate(req.params.id, {$pull: { friends: req.params.friendId }}, { runValidators: true, new: true })
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user found with that ID' })
-          : res.json({ user })
+          ? res.status(404).json({ message: 'No friend found with that ID' })
+          : res.json({ message: `Friend ${req.params.friendId} successfully deleted.` })
       )
       .catch((err) => res.status(500).json(err));
   },
