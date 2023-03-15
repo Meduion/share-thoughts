@@ -8,8 +8,8 @@ module.exports = {
   },
   getOneUser(req, res) {
     User.findById(req.params.id)
-      // Come back to the populate method to display when looking at single user
-      // .populate()
+      .populate('friends')
+      .populate('thoughts')
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
