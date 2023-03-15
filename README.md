@@ -18,7 +18,22 @@
 
   ## Installation
   
-  To install Share Thoughts you will need to download the repository and open it in VSCode or another code editor. Use the integrated terminal to run npm init -y and then npm install to install the apps dependencies. Once installed the app can be run with node index.js.
+  To install Share Thoughts you will need to download the repository and open it in VSCode or another code editor. Use the integrated terminal to run npm init -y and then npm install to install the apps dependencies. Once installed the app can be run with node index.js. To create a user you will need to include the following in the JSON body:
+
+{ 
+  "username": "your username here", 
+  "email": "youremail@email.com"
+}
+
+Similarly for creating a thought the following are required in the JSON body:
+
+{
+	"thoughtText": "insert thought text",
+	"username": "username of user posting the thought",
+	"userId": "_id of user posting the thought"
+}
+
+A demonstration of Share Thoughts being used with Insomnia can be viewed [HERE](https://drive.google.com/file/d/1ZBcL_xtdUMJh4YoLAuXlkM1hJhrz8hhx/view?usp=share_link)
 
   ## License
 
