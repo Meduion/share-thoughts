@@ -1,4 +1,5 @@
 const Thought = require('../models/Thought');
+const User = require('../models/User');
 
 module.exports = {
   getThoughts(req, res) {
@@ -8,7 +9,6 @@ module.exports = {
   },
   getOneThought(req, res) {
     Thought.findById(req.params.id)
-      // .select('-__v')
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
@@ -18,6 +18,9 @@ module.exports = {
   },
   createThought(req, res) {
     Thought.create(req.body)
+      .then(({ _id }) => {
+        return User.findByIdAndUpdate(req.body.userId, { $push: { thoughts: _id }}, { new: true, runValidators: true });
+      })
       .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
@@ -35,8 +38,9 @@ module.exports = {
       .then((thought) =>
         !thought
         ? res.status(404).json({ message: 'No thought found!' })
-        : res.json({ thought })
+        : User.findByIdAndUpdate(req.params.userId,  {$pull: { thoughts: req.params.id }}, { runValidators: true, new: true})
       )
+      .then(() => res.json({ message: 'Thought successfully deleted.'}))
       .catch((err) => res.status(500).json(err));
   },
   addReaction(req, res) {
